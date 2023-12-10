@@ -4,13 +4,17 @@ import './App.css';
 import axios from 'axios';
 
 function App() {
-  const [data, setData] = useState([]);
+  const [getHelloData, setGetHelloData] = useState([]);
+  const [personsFindAllData, setPersonsFindAllData] = useState([]);
 
   const getData = async () => {
     try {
-      const res = await axios.get('http://localhost:5001/');
-      console.log(res);
-      setData(res.data);
+      const getHelloRes = await axios.get('http://localhost:5001/');
+      console.log(getHelloRes);
+      setGetHelloData(getHelloRes.data);
+      const personsFindAllRes = await axios.get('http://localhost:5001/persons');
+      console.log(personsFindAllRes);
+      setPersonsFindAllData(personsFindAllRes.data);
     } catch (err) {
       console.error(err);
     }
@@ -36,7 +40,13 @@ function App() {
           Learn React
         </a>
         <a>
-          api response: {data}
+          getHello api response: {getHelloData}
+        </a>
+        <a>
+          persons.findAll api response: {JSON.stringify(personsFindAllData[1])}
+        </a>
+        <a>
+          persons.findAll api response: {JSON.stringify(personsFindAllData)}
         </a>
       </header>
     </div>

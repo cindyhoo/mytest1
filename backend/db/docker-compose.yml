@@ -1,0 +1,25 @@
+version: "3.0"
+
+services:
+  db_my_galaxy:
+    image: postgres:latest
+    container_name: my_galaxy
+    ports:
+      - 1000:5432
+    volumes:
+      - ./docker/db/my_galaxy/postgres:/var/lib/postgres
+    restart: always
+    environment:
+      POSTGRES_USER: "my_galaxy"
+      POSTGRES_PASSWORD: "my_galaxy"
+    networks:
+      main:
+        ipv4_address: 172.22.0.231
+
+networks:
+  main:
+    driver: bridge
+    ipam:
+      config:
+        - subnet: 172.22.0.0/16
+          gateway: 172.22.0.1
